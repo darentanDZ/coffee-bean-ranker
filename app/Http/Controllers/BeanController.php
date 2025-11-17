@@ -50,11 +50,8 @@ class BeanController extends Controller
         $sortBy = $request->get('sort', 'newest');
         switch ($sortBy) {
             case 'rating':
-                $query->leftJoin('reviews', 'beans.id', '=', 'reviews.bean_id')
-                    ->select('beans.*')
-                    ->selectRaw('AVG(reviews.rating_overall) as avg_rating')
-                    ->groupBy('beans.id')
-                    ->orderByDesc('avg_rating');
+                $query->withAvg('reviews', 'rating_overall')
+                    ->orderByDesc('reviews_avg_rating_overall');
                 break;
             case 'popular':
                 $query->withCount('reviews')->orderByDesc('reviews_count');

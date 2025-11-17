@@ -32,24 +32,28 @@
                 @endguest
             </div>
         </div>
+    </div>
+</div>
 
-        <!-- Stats -->
-        <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+<!-- Stats -->
+<div class="bg-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-                <div class="text-4xl font-bold text-cream-300">{{ $stats['total_beans'] ?? 0 }}</div>
-                <div class="text-cream-200 mt-2">Coffee Beans</div>
+                <div class="text-4xl font-bold text-coffee-900">{{ $stats['total_beans'] ?? 0 }}</div>
+                <div class="text-coffee-600 mt-2">Coffee Beans</div>
             </div>
             <div>
-                <div class="text-4xl font-bold text-cream-300">{{ $stats['total_reviews'] ?? 0 }}</div>
-                <div class="text-cream-200 mt-2">Reviews</div>
+                <div class="text-4xl font-bold text-coffee-900">{{ $stats['total_reviews'] ?? 0 }}</div>
+                <div class="text-coffee-600 mt-2">Reviews</div>
             </div>
             <div>
-                <div class="text-4xl font-bold text-cream-300">{{ $stats['total_users'] ?? 0 }}</div>
-                <div class="text-cream-200 mt-2">Coffee Lovers</div>
+                <div class="text-4xl font-bold text-coffee-900">{{ $stats['total_users'] ?? 0 }}</div>
+                <div class="text-coffee-600 mt-2">Coffee Lovers</div>
             </div>
             <div>
-                <div class="text-4xl font-bold text-cream-300">{{ $stats['total_roasters'] ?? 0 }}</div>
-                <div class="text-cream-200 mt-2">Roasters</div>
+                <div class="text-4xl font-bold text-coffee-900">{{ $stats['total_roasters'] ?? 0 }}</div>
+                <div class="text-coffee-600 mt-2">Roasters</div>
             </div>
         </div>
     </div>

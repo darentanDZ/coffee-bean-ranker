@@ -23,6 +23,9 @@ Route::middleware('auth')->group(function () {
 
 // Discussions - Public & Auth
 Route::resource('discussions', DiscussionController::class);
+Route::middleware('auth')->group(function () {
+    Route::post('discussions/{discussion}/replies', [DiscussionController::class, 'storeReply'])->name('discussions.replies.store');
+});
 
 // User Dashboard & Profile - Auth required
 Route::middleware('auth')->group(function () {
