@@ -11,8 +11,13 @@ use Illuminate\Support\Facades\Route;
 // Home / Landing Page
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Beans - Public & Auth
-Route::resource('beans', BeanController::class);
+// Beans - Public routes
+Route::resource('beans', BeanController::class)->only(['index', 'show']);
+
+// Beans - Auth required routes
+Route::middleware('auth')->group(function () {
+    Route::resource('beans', BeanController::class)->except(['index', 'show']);
+});
 
 // Reviews - Auth required
 Route::middleware('auth')->group(function () {
