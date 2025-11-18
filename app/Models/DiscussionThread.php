@@ -13,9 +13,9 @@ class DiscussionThread extends Model
         'category',
         'title',
         'content',
-        'pinned',
-        'locked',
-        'view_count',
+        // 'pinned' removed - admin only
+        // 'locked' removed - admin only
+        // 'view_count' removed - system managed
     ];
 
     protected $casts = [

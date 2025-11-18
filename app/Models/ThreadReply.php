@@ -11,8 +11,8 @@ class ThreadReply extends Model
         'thread_id',
         'user_id',
         'content',
-        'is_best_answer',
-        'upvotes',
+        // 'is_best_answer' removed - thread author only
+        // 'upvotes' removed - system managed
     ];
 
     protected $casts = [

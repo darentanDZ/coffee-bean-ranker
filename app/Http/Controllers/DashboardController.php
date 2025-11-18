@@ -78,7 +78,7 @@ class DashboardController extends Controller
             'purchase_location' => 'nullable|string|max:255',
             'notes' => 'nullable|string',
             'roast_date' => 'nullable|date',
-            'status' => 'nullable|string|max:255',
+            'status' => 'nullable|in:current,finished,stale,wishlist',
         ]);
 
         $validated['user_id'] = Auth::id();
