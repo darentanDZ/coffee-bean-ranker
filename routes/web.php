@@ -6,6 +6,7 @@ use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 
 // Home / Landing Page
@@ -33,28 +34,28 @@ Route::middleware('auth')->group(function () {
 });
 
 // User Dashboard & Profile - Auth required
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/journal', [DashboardController::class, 'journal'])->name('journal.index');
+    Route::post('/journal', [DashboardController::class, 'storeJournal'])->name('journal.store');
+    Route::delete('/journal/{userBean}', [DashboardController::class, 'destroyJournal'])->name('journal.destroy');
 
+    // Profile routes
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-
-    // User public profile
-    Route::get('/users/{user}', [ProfileController::class, 'public'])->name('users.show');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Placeholder auth routes (will be replaced with Laravel Breeze)
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
+// Public user profile
+Route::get('/users/{user}', [ProfileController::class, 'public'])->name('users.show');
 
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('register');
+// Admin Dashboard - Admin only
+Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::patch('/discussions/{discussion}/pin', [AdminDashboardController::class, 'pinDiscussion'])->name('discussions.pin');
+    Route::patch('/discussions/{discussion}/lock', [AdminDashboardController::class, 'lockDiscussion'])->name('discussions.lock');
+    Route::delete('/users/{user}', [AdminDashboardController::class, 'deleteUser'])->name('users.delete');
+});
 
-Route::post('/logout', function () {
-    auth()->logout();
-    return redirect('/');
-})->name('logout');
+require __DIR__.'/auth.php';
