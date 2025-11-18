@@ -43,8 +43,8 @@
                 <span>👁️ {{ $discussion->view_count ?? 0 }} views</span>
             </div>
 
-            <div class="prose max-w-none text-coffee-700">
-                {!! nl2br(e($discussion->content)) !!}
+            <div class="prose max-w-none text-coffee-700 whitespace-pre-line">
+                {{ $discussion->content }}
             </div>
         </div>
 
@@ -94,8 +94,8 @@
                                 @endif
                             </div>
 
-                            <div class="prose max-w-none text-coffee-700">
-                                {!! nl2br(e($reply->content)) !!}
+                            <div class="prose max-w-none text-coffee-700 whitespace-pre-line">
+                                {{ $reply->content }}
                             </div>
 
                             @if($reply->upvotes > 0)

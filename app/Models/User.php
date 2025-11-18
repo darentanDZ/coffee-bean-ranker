@@ -30,7 +30,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'brewing_preferences',
         'instagram_handle',
         'twitter_handle',
-        'role',
+        // 'role' removed - must be set only by admins through dedicated methods
     ];
 
     /**

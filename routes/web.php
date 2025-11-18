@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Reviews - Auth required
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'throttle:60,1'])->group(function () {
     Route::post('beans/{bean}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
     Route::put('reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
     Route::delete('reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
 
 // Discussions - Public & Auth
 Route::resource('discussions', DiscussionController::class);
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'throttle:30,1'])->group(function () {
     Route::post('discussions/{discussion}/replies', [DiscussionController::class, 'storeReply'])->name('discussions.replies.store');
 });
 
@@ -51,7 +51,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('/users/{user}', [ProfileController::class, 'public'])->name('users.show');
 
 // Admin Dashboard - Admin only
-Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::patch('/discussions/{discussion}/pin', [AdminDashboardController::class, 'pinDiscussion'])->name('discussions.pin');
     Route::patch('/discussions/{discussion}/lock', [AdminDashboardController::class, 'lockDiscussion'])->name('discussions.lock');
